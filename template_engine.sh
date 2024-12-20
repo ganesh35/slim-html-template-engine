@@ -149,7 +149,6 @@ process_templates() {
 create_info_file() {
   debug_log "Creating info JSON file in $BUILD_DIR"
   version=$(jq -r '.version // "unknown"' "$VARIABLES_FILE")
-  build=$(jq -r '.build // "unknown"' "$VARIABLES_FILE")
   name=$(jq -r '.name // "unknown"' "$VARIABLES_FILE")
   commit_id=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
   echo '{"status":"OK","name":"'$name'","version":"'$version'","build":"'$build'","commit_id":"'$commit_id'"}' > "$BUILD_DIR/$INFO_FILE"

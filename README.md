@@ -8,7 +8,29 @@ This Shell script provides a simple template engine for rendering HTML pages. It
 - Including reusable modules (e.g., header, footer) into templates.
 - Rendering multiple HTML files from a directory.
 
-## Script Components
+
+## Quick start
+
+***Generate a skeleton project***
+
+```sh
+./generate_skeleton_project.sh --debug
+```
+Make your changes to files under pages, then 
+
+***Generate / re-generate html website***
+```sh
+./template_engine.sh --debug
+```
+This will generate all html pages into dist folder, which you can use them to deploy to your webhosting space.
+
+***Clean-up***
+To remove all generated sample content, run
+```sh
+./remove_skeleton_project.sh
+```
+
+## How to use?
 
 ### Variables and Directories
 - `TEMPLATE_DIR`: Directory containing the `.html` template files. Default: `pages`.
