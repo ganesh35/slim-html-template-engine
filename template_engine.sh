@@ -102,7 +102,7 @@ process_templates() {
   for entry in "$TEMPLATE_DIR"/*.html; do
     
     if [ -f "$entry" ]; then
-      local output_file="$OUTPUT_DIR/$(basename "$entry")"
+      output_file="$OUTPUT_DIR/$(basename "$entry")"
       
       cp "$entry" "$output_file"
 
@@ -151,7 +151,18 @@ create_info_file() {
   version=$(jq -r '.version // "unknown"' "$VARIABLES_FILE")
   name=$(jq -r '.name // "unknown"' "$VARIABLES_FILE")
   commit_id=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
-  echo '{"status":"OK","name":"'$name'","version":"'$version'","build":"'$build'","commit_id":"'$commit_id'"}' > "$BUILD_DIR/$INFO_FILE"
+
+  printf '{
+    "status": "%s",
+    "name": "%s",
+    "version": "%s",
+    "commit_id": "%s"
+  }\n' \
+  "OK" \
+  "${name}" \
+  "${version}" \
+  "${commit_id}" > "$BUILD_DIR/$INFO_FILE"
+  #echo '{"status":"OK","name":"$name'","version":"'$version'","build":"'$build'","commit_id":"'$commit_id'"}' > "$BUILD_DIR/$INFO_FILE"  
   debug_log "Info JSON file created: $BUILD_DIR/$INFO_FILE"
 }
 
